@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "819122626418",
+    "firebase_url": "https://golf-a3bf5.firebaseio.com",
+    "project_id": "golf-a3bf5",
+    "storage_bucket": "golf-a3bf5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:819122626418:android:487685c401f92337",
+        "android_client_info": {
+          "package_name": "io.golf.play"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "819122626418-fo99lh63led5sopf343h2kshq4nlh78d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDU0v6C7iHV3tgbEoow_iyKTVOs5kY0XoI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

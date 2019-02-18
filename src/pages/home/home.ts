@@ -51,30 +51,7 @@ export class HomePage {
     };
     const pushObject: PushObject = this.push.init(options);
 
-    pushObject.on('notification').subscribe((notification: any) => 
-    {
-        const confirm = this.alert.create({
-          title: 'New Notification',
-          message: notification.message,
-          buttons: [
-            {
-              text: 'Cancel',
-              role: 'cancel',
-              handler: () => {
-                console.log('Cancel clicked');
-              }
-            },
-            {
-              text: 'See',
-              handler: () => {
-                alert('See clicked');
-              }
-            }
-          ]
-        });
-        confirm.present();
-      
-    });
+    pushObject.on('notification').subscribe((notification: any) => console.log('Received a notification', notification));
 
     pushObject.on('registration').subscribe((registration: any) => console.log('Device registered', registration));
 

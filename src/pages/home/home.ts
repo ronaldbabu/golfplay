@@ -117,17 +117,20 @@ export class HomePage {
 
   openWebpage(url) {
 
+    
     const options: InAppBrowserOptions = {
-      zoom: 'no',
-      toolbar: 'no',
-      location: 'no'
+
+      hideurlbar: 'no',
+      location: 'no',
+      hardwareback : 'yes',
+      zoom: 'yes'
     }
+    
     let newUrl = 'http://' + url;
     const browser = this.iab.create(newUrl, '_self', options);
 
+  
+  
 
   }
-
-
-
 }

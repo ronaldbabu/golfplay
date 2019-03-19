@@ -8,6 +8,8 @@ import { InAppBrowser} from '@ionic-native/in-app-browser'
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { RegTokenProvider } from '../providers/reg-token/reg-token';
+import { HTTP } from '@ionic-native/http';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,7 @@ import { HomePage } from '../pages/home/home';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp)
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -26,7 +29,8 @@ import { HomePage } from '../pages/home/home';
   providers: [
     StatusBar,Push,InAppBrowser,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    RegTokenProvider, HTTP
   ]
 })
 export class AppModule {}

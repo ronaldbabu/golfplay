@@ -1,0 +1,7 @@
+#Tue Mar 19 18:23:13 IST 2019
+base.0=/home/socius/Desktop/golfapp/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0
+path.1=classes2.dex
+renamed.1=classes2.dex
+path.0=classes.dex
+renamed.0=classes.dex
+base.1=/home/socius/Desktop/golfapp/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0

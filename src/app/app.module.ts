@@ -10,6 +10,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { RegTokenProvider } from '../providers/reg-token/reg-token';
 import { HTTP } from '@ionic-native/http';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,9 @@ import { HTTP } from '@ionic-native/http';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
+
 
   ],
   bootstrap: [IonicApp],

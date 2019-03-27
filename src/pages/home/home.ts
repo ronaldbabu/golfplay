@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Nav, App, Platform, LoadingController, AlertController } from 'ionic-angular';
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser'
 import { StatusBar } from '@ionic-native/status-bar';
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-home',
@@ -12,7 +14,19 @@ export class HomePage {
 
   url: string;
   count: number = 0;
-  constructor(public nav: Nav, public app: App, private iab: InAppBrowser, private loadingCtrl: LoadingController, public platform: Platform, public statusBar: StatusBar, private push: Push, private alert: AlertController) {
+  pbUrl: string;
+
+  constructor(public nav: Nav, public app: App, private iab: InAppBrowser, 
+    private loadingCtrl: LoadingController,
+     public platform: Platform, public statusBar: StatusBar, 
+     private push: Push, private alert: AlertController,
+     public navCtrl: NavController, public navParams: NavParams,  
+     public alertCtrl: AlertController, public storage: Storage) {
+
+      this.storage.get('name').then((name) => {
+        this.pbUrl = name; 
+       });
+
     platform.ready().then(() => {
       if (platform.is('android')) {
         statusBar.overlaysWebView(false);
@@ -72,7 +86,7 @@ export class HomePage {
       });
 
   }
-
+ 
   //Push Notifications
 
   initPush() {
@@ -92,7 +106,7 @@ export class HomePage {
 
     pushObject.on('notification').subscribe((notification: any) => {
       const confirm = this.alert.create({
-        title: 'New Notification',
+        title: notification.title,
         message: notification.message,
         buttons: [
           {
@@ -115,8 +129,9 @@ export class HomePage {
 
   // Search Webpages
 
-  openWebpage(url) {
 
+
+    openWebpage(url) {
     
     const options: InAppBrowserOptions = {
 
@@ -127,10 +142,14 @@ export class HomePage {
     }
     
     let newUrl = 'http://' + url;
-    const browser = this.iab.create(newUrl, '_self', options);
+    const browser = this.iab.create(newUrl, '_self', options); 
 
-  
-  
+    this.storage.ready().then(() => {
+      this.storage.set('name', url);
+    });
+    
 
   }
+
+
 }

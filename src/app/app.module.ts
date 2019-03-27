@@ -8,6 +8,7 @@ import { InAppBrowser} from '@ionic-native/in-app-browser'
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { LoginPage } from '../pages/login/login';
 import { RegTokenProvider } from '../providers/reg-token/reg-token';
 import { HTTP } from '@ionic-native/http';
 import { IonicStorageModule } from '@ionic/storage';
@@ -15,7 +16,8 @@ import { IonicStorageModule } from '@ionic/storage';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -27,7 +29,8 @@ import { IonicStorageModule } from '@ionic/storage';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    LoginPage
   ],
   providers: [
     StatusBar,Push,InAppBrowser,

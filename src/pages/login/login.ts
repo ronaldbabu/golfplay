@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Events } from 'ionic-angular';
+import { Push, PushObject, PushOptions } from '@ionic-native/push';
 
 
 @IonicPage()
@@ -19,10 +20,12 @@ export class LoginPage {
   authForm: FormGroup;
   usrData: any;
   check: boolean = true;
+  regId:any;
 
   constructor(public events: Events, private fb: FormBuilder, public alertCtrl: AlertController,
     public navCtrl: NavController, public navParams: NavParams, public http: HTTP,
-    private loadingCtrl: LoadingController, private storage: Storage
+    private loadingCtrl: LoadingController, private storage: Storage, 
+    public push: Push
     ) {
 
     this.authForm = fb.group({
@@ -34,7 +37,75 @@ export class LoginPage {
 
   login() {
 
-    this.navCtrl.setRoot(HomePage)
+    const options: PushOptions = {
+      android: {
+        senderID: '964030697866'
+      },
+      ios: {
+        alert: 'true',
+        badge: false,
+        sound: 'true'
+      },
+      windows: {}
+    };
+    const pushObject: PushObject = this.push.init(options);
+
+    pushObject.on('registration').subscribe((data: any) => {
+       this.regId= data.registrationId;    
+
+       let val = {
+
+        'token': this.regId,
+        'username': this.username,
+        'password': this.password,
+        'db': 'demo'
+        
+      };
+      let headers = {
+        'Content-Type': 'application/json'
+      };
+  
+      this.http.post('http://192.168.1.208:8086/firebase/registeration', val, headers)
+        .then((data) => {    
+        console.log(data);
+        this.navCtrl.setRoot(HomePage);
+        })
+        .catch((error) => {
+         console.log(error);
+        });   
+      
+      });
+
+    pushObject.on('notification').subscribe((data: any) => {
+      console.log('message -> ' + data.message);
+      //if user using app and push notification comes
+      if (data.additionalData.foreground) {
+        // if application open, show popup
+        let confirmAlert = this.alertCtrl.create({
+          title: 'New Notification',
+          message: data.message,
+          buttons: [{
+            text: 'Ignore',
+            role: 'cancel'
+          }, {
+            text: 'View',
+            handler: () => {
+              //TODO: Your logic here
+
+            }
+          }]
+        });
+        confirmAlert.present();
+      } else {
+        //if user NOT using app and push notification comes
+        //TODO: Your logic on click of push notification directly
+
+        console.log('Push notification clicked');
+      }
+    });
+
+    pushObject.on('error').subscribe(error => console.error('Error with Push plugin' + error));
+
 
     // let loader = this.loadingCtrl.create({
     //   spinner: 'crescent',
